@@ -13,12 +13,14 @@ choice.appendChild(
 choice.appendChild(
   Object.assign(document.createElement('button'), {
     id: 'gridbutton',
+
     textContent: 'Click here to generate the grid',
   })
 );
 choice.appendChild(
   Object.assign(document.createElement('button'), {
     id: 'hide_button',
+
     textContent: 'Refresh',
   })
 );
@@ -87,15 +89,14 @@ function gridCreate(e) {
 function getNumberOfGrids() {
   console.log('getting');
 }
-const refreshPage = () => {
+function refreshPage() {
   console.log('refreshing');
   location.reload();
-};
+}
 const button = document.querySelector('#gridbutton');
-const refreshbutton = document.querySelector('#refresh_button');
+const refreshbutton = document.querySelector('#hide_button');
 
 const gridValue = document.querySelector('#numberOfGrids');
-//
 button.addEventListener('click', gridCreate);
 gridValue.addEventListener('keydown', function (event) {
   if (event.keyCode === 13) {
