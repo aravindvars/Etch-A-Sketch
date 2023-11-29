@@ -1,26 +1,22 @@
 let x;
-
+// Create the necessary button and input elements using JS
 choice.appendChild(
   Object.assign(document.createElement('input'), {
     id: 'numberOfGrids',
     placeholder: 'Enter the no.of rows',
     type: 'number',
-    // style: {
-    //   width: ,
-    // },
   })
 );
 choice.appendChild(
   Object.assign(document.createElement('button'), {
     id: 'gridbutton',
-
+    value: 0,
     textContent: 'Click here to generate the grid',
   })
 );
 choice.appendChild(
   Object.assign(document.createElement('button'), {
     id: 'hide_button',
-
     textContent: 'Refresh',
   })
 );
@@ -38,12 +34,8 @@ function gridCreate(e) {
     case x <= 0:
       alert('Please enter a number greater than zero');
       return;
-    // case typeof x !== Number:
-    //   alert('Please enter a number');
-    //   return;
   }
 
-  // location.reload();
   let box;
   // loop over the number of grids the user wants and create separate hor & ver divs to host the grid pattern
   for (let i = 0; i < x; i++) {
@@ -53,19 +45,21 @@ function gridCreate(e) {
     const currentWidth =
       getComputedStyle(root).getPropertyValue('--width-container');
     box.style.width = currentWidth / x;
-    console.log('creating div');
+    console.log('creating vertical div ie; a column');
     main_container.appendChild(box);
     for (let j = 0; j < x; j++) {
       const box2 = document.createElement('div');
       box2.className = 'box2';
+      box2.dataset.value = 0;
       const currentdim =
         getComputedStyle(root).getPropertyValue('--height-container');
       box2.style.height = currentdim / x;
       box2.style.maxWidth = currentdim / x;
-      console.log('creating vertical div');
+      console.log('creating horizontal div');
       box.appendChild(box2);
     }
   }
+
   let element = document.getElementsByClassName('box1');
   if (element !== null) {
     document.getElementById('gridbutton').id = 'hidden_button';
@@ -75,34 +69,48 @@ function gridCreate(e) {
   const gridBox = document.querySelectorAll('.box2');
   gridBox.forEach((gridb) => {
     gridb.addEventListener('mouseover', () => {
-      console.log('changing colour');
+      // console.log('changing colour');
       gridb.className = 'box2_change';
     });
   });
   gridBox.forEach((gridb) => {
     gridb.addEventListener('mouseout', () => {
-      console.log('changing to normal');
+      // console.log('changing to normal');
       gridb.className = 'box2';
     });
   });
 }
-function getNumberOfGrids() {
-  console.log('getting');
-}
+
 function refreshPage() {
   console.log('refreshing');
   location.reload();
 }
-const button = document.querySelector('#gridbutton');
-const refreshbutton = document.querySelector('#hide_button');
 
+const element2 = document.getElementsByClassName('box2');
+if (element2 !== null) {
+  console.log('box2 is present');
+  let cnt = parseInt(box2.dataset.value);
+  cnt++;
+  box2.dataset.value = cnt;
+  console.log(box2.dataset.value);
+}
+// box2.addEventListener('mouseover', count);
+// function count() {
+//   {
+//   }
+// }
+
+const gridCreateButton = document.querySelector('#gridbutton');
+const refreshbutton = document.querySelector('#hide_button');
 const gridValue = document.querySelector('#numberOfGrids');
-button.addEventListener('click', gridCreate);
+
+gridCreateButton.addEventListener('click', gridCreate);
+// gridCreateButton.addEventListener('mouseover', count);
 gridValue.addEventListener('keydown', function (event) {
   if (event.keyCode === 13) {
-    gridCreate; // Perform your desired action here when the Enter key is pressed.
     console.log('Enter key was pressed!');
+    gridCreateButton.click(); // Perform your desired action here when the Enter key is pressed.
   }
 });
-
 refreshbutton.addEventListener('click', refreshPage);
+// gridCreateButton.addEventListener('c', count);
